@@ -38,9 +38,34 @@ npm install
 ./install.sh
 ```
 
-### Usage
+### Launch Web UI (macOS)
 
-Open Hermes in the project directory:
+Career-Ops Hermes ships with a **standalone Web UI** — its own port, its own state, no interference with your main Hermes instance.
+
+```bash
+# Install as a launchd service (auto-starts on login)
+./scripts/service.sh install
+
+# Start now
+./scripts/service.sh start
+
+# Open in browser
+open http://127.0.0.1:8790
+```
+
+Management commands:
+```bash
+./scripts/service.sh status     # Check if running
+./scripts/service.sh stop       # Stop
+./scripts/service.sh restart    # Restart
+./scripts/service.sh uninstall  # Remove launchd service
+```
+
+The Web UI is pre-configured to load the career-ops project context (`AGENTS.md`) and all 17 skills automatically.
+
+### CLI Usage
+
+Or use Hermes CLI directly in the project directory:
 
 ```bash
 cd career-ops-hermes
