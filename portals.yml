@@ -237,6 +237,35 @@ search_queries:
     query: 'site:euremotejobs.com "AI" OR "DevRel" OR "Solutions Architect" OR "Forward Deployed" OR "Founding Engineer"'
     enabled: true
 
+  # -- Chinese AI job boards --
+  - name: BOSS直聘 — AI架构师
+    query: 'site:zhipin.com "AI" OR "人工智能" "架构师" OR "解决方案" "大模型" OR "多模态" OR "Agent"'
+    enabled: true
+
+  - name: BOSS直聘 — AI工程师
+    query: 'site:zhipin.com "AI工程师" OR "大模型工程师" OR "算法" OR "Agent开发" OR "RAG"'
+    enabled: true
+
+  - name: BOSS直聘 — CV/多模态
+    query: 'site:zhipin.com "计算机视觉" OR "多模态" OR "CV" "架构师" OR "技术负责人"'
+    enabled: true
+
+  - name: 猎聘 — AI解决方案架构师
+    query: 'site:liepin.com "AI" OR "人工智能" "解决方案架构师" OR "AI架构师" OR "技术总监"'
+    enabled: true
+
+  - name: 猎聘 — AI大模型
+    query: 'site:liepin.com "大模型" OR "多模态" OR "Agent" "架构" OR "负责人" OR "专家"'
+    enabled: true
+
+  - name: 拉勾 — AI架构
+    query: 'site:lagou.com "AI" OR "人工智能" "架构师" OR "解决方案" "大模型" OR "Agent"'
+    enabled: true
+
+  - name: 脉脉 — AI技术管理
+    query: 'site:maimai.cn "AI" OR "人工智能" "架构师" OR "技术总监" OR "技术负责人"'
+    enabled: true
+
   - name: RemoteOK — AI/DevRel/SA
     query: 'site:remoteok.com "AI Engineer" OR "Developer Advocate" OR "Solutions Architect" OR "Forward Deployed" OR "Founding Engineer"'
     enabled: true
@@ -1173,6 +1202,127 @@ tracked_companies:
     scan_query: 'site:kariyer.turkcell.com.tr OR "turkcell" careers "Software Engineer" OR "Backend" OR "Frontend"'
     notes: "Istanbul. Turkey's largest telecom. Large digital and tech transformation team."
     enabled: false
+
+  # ── Chinese AI / Tech Companies ─────────────────────────────
+
+  - name: 字节跳动 (ByteDance)
+    careers_url: https://jobs.bytedance.com
+    scan_method: websearch
+    scan_query: 'site:jobs.bytedance.com "AI" OR "大模型" OR "Agent" OR "解决方案架构师" OR "多模态"'
+    notes: "Beijing/Shanghai/Shenzhen. TikTok parent. Massive AI investment, Doubao model family."
+    enabled: true
+
+  - name: 阿里巴巴 (Alibaba)
+    careers_url: https://careers.alibaba.com
+    scan_method: websearch
+    scan_query: 'site:careers.alibaba.com "AI" OR "大模型" OR "Agent" OR "解决方案架构师" OR "多模态"'
+    notes: "Hangzhou/Beijing. Tongyi Qianwen (通义千问) model family. AliCloud AI."
+    enabled: true
+
+  - name: 腾讯 (Tencent)
+    careers_url: https://careers.tencent.com
+    scan_method: websearch
+    scan_query: 'site:careers.tencent.com "AI" OR "大模型" OR "Agent" OR "解决方案架构师" OR "多模态"'
+    notes: "Shenzhen/Beijing. Hunyuan (混元) model. WeChat AI ecosystem."
+    enabled: true
+
+  - name: 百度 (Baidu)
+    careers_url: https://talent.baidu.com
+    scan_method: websearch
+    scan_query: 'site:talent.baidu.com "AI" OR "大模型" OR "Agent" OR "解决方案架构师" OR "多模态"'
+    notes: "Beijing. ERNIE (文心) model. Apollo autonomous driving. AI Cloud."
+    enabled: true
+
+  - name: 商汤科技 (SenseTime)
+    careers_url: https://www.sensetime.com/careers
+    scan_method: websearch
+    scan_query: '"商汤" OR "SenseTime" careers "AI" OR "大模型" OR "多模态" OR "解决方案架构师"'
+    notes: "Shanghai/Beijing. Computer vision leader. SenseNova model platform."
+    enabled: true
+
+  - name: 旷视科技 (Megvii)
+    careers_url: https://www.megvii.com/careers
+    scan_method: websearch
+    scan_query: '"旷视" OR "Megvii" careers "AI" OR "大模型" OR "多模态" OR "算法"'
+    notes: "Beijing. Computer vision + AIoT. Face++ platform."
+    enabled: true
+
+  - name: 智谱AI (Zhipu AI)
+    careers_url: https://www.zhipuai.cn/aboutus/careers
+    scan_method: websearch
+    scan_query: '"智谱" OR "ZhipuAI" careers "AI" OR "大模型" OR "Agent" OR "解决方案"'
+    notes: "Beijing. ChatGLM model family. Leading Chinese LLM company."
+    enabled: true
+
+  - name: 月之暗面 (Moonshot AI)
+    careers_url: https://www.moonshot.cn/join
+    scan_method: websearch
+    scan_query: '"月之暗面" OR "Moonshot AI" OR "Kimi" careers "AI" OR "大模型" OR "Agent" OR "架构"'
+    notes: "Beijing. Kimi chatbot. One of China's hottest AI startups."
+    enabled: true
+
+  - name: MiniMax
+    careers_url: https://www.minimaxi.com/careers
+    scan_method: websearch
+    scan_query: '"MiniMax" OR "稀宇科技" careers "AI" OR "大模型" OR "Agent" OR "多模态"'
+    notes: "Shanghai. Hailuo AI. Multi-modal models + voice AI."
+    enabled: true
+
+  - name: 百川智能 (Baichuan AI)
+    careers_url: https://www.baichuan-ai.com/home
+    scan_method: websearch
+    scan_query: '"百川智能" OR "Baichuan AI" careers "AI" OR "大模型" OR "Agent" OR "架构师"'
+    notes: "Beijing. Founded by Wang Xiaochuan (Sogou founder). Baichuan model family."
+    enabled: true
+
+  - name: DeepSeek (深度求索)
+    careers_url: https://careers.deepseek.com
+    scan_method: websearch
+    scan_query: '"DeepSeek" OR "深度求索" careers "AI" OR "大模型" OR "Agent" OR "研究员"'
+    notes: "Hangzhou/Beijing. Disruptive open-source LLMs (V3, R1). High-end research."
+    enabled: true
+
+  - name: 零一万物 (01.AI)
+    careers_url: https://www.lingyiwanwu.com/careers
+    scan_method: websearch
+    scan_query: '"零一万物" OR "01.AI" OR "Yi" careers "AI" OR "大模型" OR "Agent" OR "架构"'
+    notes: "Beijing. Founded by Kai-Fu Lee. Yi model family."
+    enabled: true
+
+  - name: 阶跃星辰 (StepFun)
+    careers_url: https://www.stepfun.com/careers
+    scan_method: websearch
+    scan_query: '"阶跃星辰" OR "StepFun" careers "AI" OR "大模型" OR "Agent" OR "多模态"'
+    notes: "Shanghai. Multi-modal foundation models. Strong technical team."
+    enabled: true
+
+  - name: 华为 (Huawei)
+    careers_url: https://career.huawei.com
+    scan_method: websearch
+    scan_query: 'site:career.huawei.com "AI" OR "大模型" OR "Agent" OR "解决方案架构师" OR "多模态"'
+    notes: "Shenzhen/Beijing/Shanghai. Pangu (盘古) model. Ascend AI chips. Cloud AI."
+    enabled: true
+
+  - name: 科大讯飞 (iFlytek)
+    careers_url: https://www.iflytek.com/about/hr/
+    scan_method: websearch
+    scan_query: '"科大讯飞" OR "iFlytek" careers "AI" OR "大模型" OR "多模态" OR "解决方案架构师"'
+    notes: "Hefei/Beijing. Spark (星火) model. Voice AI leader."
+    enabled: true
+
+  - name: 小红书 (Xiaohongshu)
+    careers_url: https://job.xiaohongshu.com
+    scan_method: websearch
+    scan_query: 'site:job.xiaohongshu.com "AI" OR "大模型" OR "Agent" OR "多模态" OR "架构师"'
+    notes: "Shanghai/Beijing. Social commerce platform. Strong AI investment in search/recommendation."
+    enabled: true
+
+  - name: 快手 (Kuaishou)
+    careers_url: https://zhaopin.kuaishou.cn
+    scan_method: websearch
+    scan_query: 'site:zhaopin.kuaishou.cn "AI" OR "大模型" OR "Agent" OR "多模态" OR "解决方案架构师"'
+    notes: "Beijing. Kling (可灵) video generation model. Short video AI."
+    enabled: true
 
   - name: Iyzico (PayU)
     careers_url: https://iyzico.com/kariyer
