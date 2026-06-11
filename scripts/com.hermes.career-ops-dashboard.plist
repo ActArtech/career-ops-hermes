@@ -4,12 +4,12 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.hermes.career-ops-webui</string>
+    <string>com.hermes.career-ops-dashboard</string>
 
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/Dean/Workspace/Git/career-ops-hermes/scripts/launchd-webui.sh</string>
+        <string>/Users/Dean/Workspace/Git/career-ops-hermes/scripts/launchd-dashboard.sh</string>
     </array>
 
     <key>RunAtLoad</key>
@@ -19,10 +19,10 @@
     <true/>
 
     <key>StandardOutPath</key>
-    <string>/Users/Dean/.hermes/webui-career-ops/server.log</string>
+    <string>/Users/Dean/Workspace/Git/career-ops-hermes/webui/server.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/Dean/.hermes/webui-career-ops/server_error.log</string>
+    <string>/Users/Dean/Workspace/Git/career-ops-hermes/webui/server_error.log</string>
 
     <key>EnvironmentVariables</key>
     <dict>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career-Ops Hermes — Dashboard</title>
+<style>
+:root {
+  --bg: #1e1e2e; --bg2: #181825; --bg3: #313244;
+  --text: #cdd6f4; --text2: #a6adc8; --text3: #6c7086;
+  --accent: #89b4fa; --green: #a6e3a1; --red: #f38ba8;
+  --yellow: #f9e2af; --purple: #cba6f7; --teal: #94e2d5;
+  --border: #45475a; --surface: #313244;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 10; }
+header h1 { font-size: 18px; font-weight: 700; color: var(--accent); }
+header .sub { font-size: 12px; color: var(--text3); }
+nav { display: flex; gap: 4px; padding: 8px 24px; background: var(--bg2); border-bottom: 1px solid var(--border); }
+nav button { background: none; border: none; color: var(--text2); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all .15s; }
+nav button:hover { background: var(--bg3); color: var(--text); }
+nav button.active { background: var(--accent); color: var(--bg); font-weight: 600; }
+main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+.stat-card .value { font-size: 28px; font-weight: 700; }
+.stat-card .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; margin-top: 4px; }
+.stat-card.accent .value { color: var(--accent); }
+.stat-card.green .value { color: var(--green); }
+.stat-card.yellow .value { color: var(--yellow); }
+.stat-card.purple .value { color: var(--purple); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); color: var(--text3); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; position: sticky; top: 92px; background: var(--bg); }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+tr:hover td { background: var(--bg3); }
+.score { font-weight: 700; }
+.score.high { color: var(--green); }
+.score.mid { color: var(--yellow); }
+.score.low { color: var(--red); }
+.status { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.status.Evaluated { background: var(--accent); color: var(--bg); }
+.status.Applied { background: var(--teal); color: var(--bg); }
+.status.Interview { background: var(--yellow); color: var(--bg); }
+.status.Offer { background: var(--green); color: var(--bg); }
+.status.Rejected { background: var(--red); color: var(--bg); }
+.status.Discarded { background: var(--text3); color: var(--bg); }
+.status.SKIP { background: var(--text3); color: var(--bg); }
+.pipeline-list { list-style: none; }
+.pipeline-list li { padding: 10px 12px; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: center; font-size: 13px; }
+.pipeline-list li:hover { background: var(--bg3); }
+.pipeline-list .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+.pipeline-list .tag.pending { background: var(--yellow); color: var(--bg); }
+.pipeline-list .tag.done { background: var(--green); color: var(--bg); }
+.report-viewer { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 24px; max-height: 70vh; overflow-y: auto; }
+.report-viewer pre { white-space: pre-wrap; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.6; }
+.actions { display: flex; gap: 8px; margin-bottom: 16px; }
+.actions button, .btn { background: var(--accent); color: var(--bg); border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.actions button:hover, .btn:hover { opacity: .85; }
+.actions button.secondary { background: var(--bg3); color: var(--text); }
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text3); }
+.empty-state h2 { font-size: 20px; margin-bottom: 8px; color: var(--text2); }
+.empty-state p { font-size: 14px; }
+.loading { text-align: center; padding: 40px; color: var(--text2); }
+.hidden { display: none !important; }
+@media (max-width: 768px) {
+  main { padding: 12px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  table { font-size: 11px; }
+  td, th { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎯 Career-Ops</h1>
+  <span class="sub">Hermes Edition</span>
+</header>
+<nav>
+  <button onclick="showTab('tracker')" class="active" id="nav-tracker">📊 Tracker</button>
+  <button onclick="showTab('pipeline')" id="nav-pipeline">📥 Pipeline</button>
+  <button onclick="showTab('reports')" id="nav-reports">📝 Reports</button>
+  <button onclick="showTab('stats')" id="nav-stats">📈 Stats</button>
+</nav>
+<main id="main"></main>
+<script>
+const API = '/api';
+
+async function fetchJSON(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(r.status);
+  return r.json();
+}
+
+function formatDate(d) { return d ? new Date(d).toISOString().slice(0,10) : '-'; }
+function scoreClass(s) { const v=parseFloat(s); if(v>=4) return 'high'; if(v>=3) return 'mid'; return 'low'; }
+
+// === Tabs ===
+function showTab(name) {
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('nav-'+name).classList.add('active');
+  if(name==='tracker') loadTracker();
+  else if(name==='pipeline') loadPipeline();
+  else if(name==='reports') loadReports();
+  else if(name==='stats') loadStats();
+}
+
+// === Tracker ===
+async function loadTracker() {
+  const main = document.getElementById('main');
+  main.innerHTML = '<div class="loading">Loading tracker...</div>';
+  try {
+    const data = await fetchJSON(API+'/tracker');
+    let html = '<div class="stats">'+
+      '<div class="stat-card accent"><div class="value">'+data.stats.total+'</div><div class="label">Total</div></div>'+
+      '<div class="stat-card green"><div class="value">'+data.stats.applied+'</div><div class="label">Applied</div></div>'+
+      '<div class="stat-card yellow"><div class="value">'+data.stats.interview+'</div><div class="label">Interview</div></div>'+
+      '<div class="stat-card purple"><div class="value">'+data.stats.offer+'</div><div class="label">Offer</div></div>'+
+    '</div>';
+    if (data.rows.length === 0) {
+      html += '<div class="empty-state"><h2>No applications yet</h2><p>Start by pasting a job description or URL. Career-Ops will evaluate it and add it here.</p></div>';
+    } else {
+      html += '<table><thead><tr><th>#</th><th>Date</th><th>Company</th><th>Role</th><th>Score</th><th>Status</th><th>Report</th></tr></thead><tbody>';
+      for (const r of data.rows) {
+        html += '<tr onclick="viewReport('+r.num+')" style="cursor:pointer">'+
+          '<td>'+r.num+'</td><td>'+r.date+'</td><td>'+r.company+'</td><td>'+r.role+'</td>'+
+          '<td class="score '+scoreClass(r.score)+'">'+r.score+'</td>'+
+          '<td><span class="status '+r.status+'">'+r.status+'</span></td>'+
+          '<td>'+r.report+'</td></tr>';
+      }
+      html += '</tbody></table>';
+    }
+    main.innerHTML = html;
+  } catch(e) {
+    main.innerHTML = '<div class="empty-state"><h2>Tracker not available</h2><p>Create cv.md and config/profile.yml first.</p></div>';
+  }
+}
+
+// === Pipeline ===
+async function loadPipeline() {
+  const main = document.getElementById('main');
+  main.innerHTML = '<div class="loading">Loading pipeline...</div>';
+  try {
+    const data = await fetchJSON(API+'/pipeline');
+    let html = '<div class="actions">';
+    if (data.pending.length > 0) html += '<button onclick="processPipeline()">▶ Process '+data.pending.length+' Pending</button>';
+    html += '</div>';
+    
+    if (data.pending.length === 0 && data.processed.length === 0) {
+      html += '<div class="empty-state"><h2>Pipeline empty</h2><p>URLs from scans or pasted JDs appear here for processing.</p></div>';
+    } else {
+      if (data.pending.length > 0) {
+        html += '<h3 style="margin-bottom:12px;color:var(--yellow)">⏳ Pending ('+data.pending.length+')</h3>';
+        html += '<ul class="pipeline-list">';
+        for (const p of data.pending) {
+          html += '<li><span class="tag pending">PENDING</span><strong>'+p.company+'</strong> — '+p.title+' <a href="'+p.url+'" target="_blank" style="color:var(--text3);font-size:11px">'+p.url.substring(0,60)+'...</a></li>';
+        }
+        html += '</ul>';
+      }
+      if (data.processed.length > 0) {
+        html += '<h3 style="margin:16px 0 12px;color:var(--green)">✅ Processed ('+data.processed.length+')</h3>';
+        html += '<ul class="pipeline-list">';
+        for (const p of data.processed.slice(-20)) {
+          html += '<li><span class="tag done">DONE</span>#'+p.num+' <strong>'+p.company+'</strong> — '+p.title+' Score: '+p.score+'</li>';
+        }
+        html += '</ul>';
+      }
+    }
+    main.innerHTML = html;
+  } catch(e) {
+    main.innerHTML = '<div class="empty-state"><h2>Pipeline not available</h2><p>'+e.message+'</p></div>';
+  }
+}
+
+// === Reports ===
+async function loadReports() {
+  const main = document.getElementById('main');
+  main.innerHTML = '<div class="loading">Loading reports...</div>';
+  try {
+    const data = await fetchJSON(API+'/reports');
+    if (data.length === 0) {
+      main.innerHTML = '<div class="empty-state"><h2>No reports yet</h2><p>Reports are generated when you evaluate a job.</p></div>';
+      return;
+    }
+    let html = '<ul class="pipeline-list">';
+    for (const r of data) {
+      html += '<li onclick="viewReportContent(\''+r.filename+'\')" style="cursor:pointer"><strong>#'+r.num+'</strong> '+r.company+' — '+r.role+' <span style="color:var(--text3);font-size:11px">'+r.date+'</span></li>';
+    }
+    html += '</ul><div id="report-content" class="report-viewer hidden"></div>';
+    main.innerHTML = html;
+  } catch(e) {
+    main.innerHTML = '<div class="empty-state"><h2>Reports not available</h2></div>';
+  }
+}
+
+async function viewReport(num) {
+  const main = document.getElementById('main');
+  try {
+    const data = await fetchJSON(API+'/report-by-num/'+num);
+    main.innerHTML = '<button onclick="loadTracker()" class="btn secondary" style="margin-bottom:12px">← Back to Tracker</button>'+
+      '<div class="report-viewer"><pre>'+escapeHtml(data.content)+'</pre></div>';
+  } catch(e) {
+    alert('Report not found');
+  }
+}
+
+async function viewReportContent(filename) {
+  try {
+    const data = await fetchJSON(API+'/report/'+filename);
+    const div = document.getElementById('report-content');
+    div.innerHTML = '<pre>'+escapeHtml(data.content)+'</pre>';
+    div.classList.remove('hidden');
+    div.scrollIntoView();
+  } catch(e) {}
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// === Stats ===
+async function loadStats() {
+  const main = document.getElementById('main');
+  main.innerHTML = '<div class="loading">Loading statistics...</div>';
+  try {
+    const tracker = await fetchJSON(API+'/tracker');
+    const scan = await fetchJSON(API+'/scan-status');
+    let html = '<h3 style="margin-bottom:16px">Overview</h3>'+
+      '<div class="stats" style="margin-bottom:32px">'+
+      '<div class="stat-card accent"><div class="value">'+tracker.stats.total+'</div><div class="label">Total Evaluations</div></div>'+
+      '<div class="stat-card green"><div class="value">'+tracker.stats.applied+'</div><div class="label">Applied</div></div>'+
+      '<div class="stat-card yellow"><div class="value">'+tracker.stats.interview+'</div><div class="label">Interview Rate</div></div>'+
+      '<div class="stat-card purple"><div class="value">'+tracker.stats.avg_score+'</div><div class="label">Avg Score</div></div>'+
+      '<div class="stat-card"><div class="value">'+scan.scans+'</div><div class="label">Total Scans</div></div>'+
+      '<div class="stat-card"><div class="value">'+scan.companies+'</div><div class="label">Tracked Companies</div></div>'+
+    '</div>';
+    
+    if (tracker.stats.total > 0) {
+      html += '<h3 style="margin-bottom:12px">Status Distribution</h3>';
+      html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px">';
+      for (const [status, count] of Object.entries(tracker.stats.by_status || {})) {
+        html += '<div class="stat-card" style="min-width:100px"><div class="value">'+count+'</div><div class="label"><span class="status '+status+'">'+status+'</span></div></div>';
+      }
+      html += '</div>';
+    }
+    main.innerHTML = html;
+  } catch(e) {
+    main.innerHTML = '<div class="empty-state"><h2>Stats not available</h2></div>';
+  }
+}
+
+async function processPipeline() {
+  if (!confirm('Process all pending pipeline URLs? This will trigger AI evaluation for each.')) return;
+  alert('Pipeline processing triggered. Check back in a few minutes.');
+  // Trigger via API
+  fetch(API+'/process').catch(()=>{});
+}
+
+// Init
+showTab('tracker');
+</script>
+</body>
+</html>

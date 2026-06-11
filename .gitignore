@@ -32,3 +32,4 @@ dashboard/career-dashboard
 # State (Hermes)
 .update-dismissed
 .backup-*/
+webui/*.log
