@@ -1,0 +1,94 @@
+# Career-Ops Profile Configuration — Alaa Almallah
+# Mirrors the structure of config/profile.example.yml (career-ops-hq/career-ops).
+# Source of truth for our own pipeline: C:\Users\DELL\job-hunt-ops\docs\master-profile.md
+# Filled: 2026-10-30
+
+candidate:
+  full_name: "Alaa Almallah"
+  title: "Director of Product Engineering & Agentic Systems"
+  email: "alaaalmallah1@gmail.com"
+  phone: "+971 52 861 1998"
+  location: "Delaware, United States"
+  linkedin: "linkedin.com/in/alaa-almallah"
+  portfolio_url: "https://alaaalmallah.com"
+  github: "github.com/ActArtech"
+  twitter: ""
+  photo: ""
+
+target_roles:
+  primary:
+    - "Senior AI Engineer"
+    - "Staff AI Engineer"
+    - "Senior Platform Engineer"
+    - "Director of Engineering"
+  archetypes:
+    - name: "AI Platform Engineer"
+      level: "Senior/Staff"
+      fit: "primary"
+    - name: "Agentic Systems Engineer"
+      level: "Senior/Staff"
+      fit: "primary"
+    - name: "Forward Deployed Engineer"
+      level: "Senior/Staff"
+      fit: "primary"
+    - name: "Engineering Director"
+      level: "Director"
+      fit: "secondary"
+    - name: "Solutions Architect"
+      level: "Senior"
+      fit: "secondary"
+
+narrative:
+  headline: "Product engineering leader building agentic systems with human approval gates and eval harnesses"
+  exit_story: "12+ years across branding, systems, and product delivery. Now focused on agentic systems, shared venture infrastructure, and reliable cost-aware operations."
+  superpowers:
+    - "Agentic systems with permission gates and human approval boundaries"
+    - "Evaluation harnesses with defined scenario coverage in CI"
+    - "TypeScript + React + Next.js platform engineering, with Python for automation"
+    - "Documentation-first workflows, observability, and shared multi-tenant infrastructure"
+  proof_points:
+    - name: "Deterministic LLM-free crisis-safety gate"
+      url: "https://alaaalmallah.com"
+      hero_metric: "68/68 defined scenario evals passing in CI"
+    - name: "Shared platform across 5 business units"
+      url: "https://github.com/ActArtech"
+      hero_metric: "Zero-downtime recovery after production overload"
+    - name: "Beat-synced video editor"
+      url: "https://github.com/ActArtech/CtrlBeat"
+      hero_metric: "Upstream open-source contributions shipped"
+
+compensation:
+  target_range: "$180K-240K"
+  currency: "USD"
+  minimum: "$150K"
+  location_flexibility: "Remote (United States). No relocation required."
+
+location:
+  country: "United States"
+  city: "Delaware"
+  timezone: "EST"
+  visa_status: "Authorized to work in the United States. No sponsorship required."
+  authorized_in: ["United States"]
+  needs_sponsorship: false
+
+# Location policy (mirrors job-hunt-ops/docs/master-profile.md, decided 2026-10-30):
+# Roles outside the United States are skipped, not applied to. This includes
+# Canada, India, Germany, the UK, Israel and every Middle East market. A role
+# reading "Remote only - Canada" is not workable from Delaware.
+location_policy:
+  country: "United States"
+  city: "Delaware"
+  timezone: "EST"
+  visa_status: "Authorized to work in the United States. No sponsorship required."
+  authorized_in: ["United States"]
+  needs_sponsorship: false
+
+language:
+  output: en
+
+spend_tier: standard
+
+cv:
+  output_format: "html"
+  locked_sections:
+    - "Open Source Contributions"
